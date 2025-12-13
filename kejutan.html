@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kejutan Kado 3D Ultra - Tema Gelap Modern</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460, #533483);
+            background-size: 400% 400%;
+            animation: gradientShift 6s ease infinite;
+            font-family: Arial, sans-serif;
+            perspective: 1000px;
+            color: #fff;
+            overflow: hidden;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        /* Partikel mengambang untuk efek modern */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 10s linear infinite;
+        }
+        .particle:nth-child(odd) {
+            animation-duration: 8s;
+            animation-delay: -2s;
+        }
+        .particle:nth-child(even) {
+            animation-duration: 12s;
+            animation-delay: -4s;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        .gift-container {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+            z-index: 5;
+        }
+        .gift-container:hover {
+            transform: rotateY(15deg) rotateX(10deg);
+        }
+        .face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px solid #333;
+            box-sizing: border-box;
+        }
+        .front {
+            background: linear-gradient(45deg, #ff4500, #ff6347);
+            transform: translateZ(100px);
+        }
+        .back {
+            background: linear-gradient(45deg, #ff4500, #ff6347);
+            transform: translateZ(-100px) rotateY(180deg);
+        }
+        .right {
+            background: linear-gradient(45deg, #ff6347, #ff7f50);
+            transform: rotateY(90deg) translateZ(100px);
+        }
+        .left {
+            background: linear-gradient(45deg, #ff6347, #ff7f50);
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+        .top {
+            background: linear-gradient(45deg, #ff8c00, #ffa500);
+            transform: rotateX(90deg) translateZ(100px);
+        }
+        .bottom {
+            background: linear-gradient(45deg, #ff8c00, #ffa500);
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+        .ribbon {
+            position: absolute;
+            width: 20px;
+            height: 200px;
+            background: #ff0000;
+            left: 90px;
+            transform: translateZ(101px);
+        }
+        .ribbon-vertical {
+            position: absolute;
+            width: 200px;
+            height: 20px;
+            background: #ff0000;
+            top: 90px;
+            transform: translateZ(101px);
+        }
+        .bow {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #ff0000;
+            border-radius: 50%;
+            top: 80px;
+            left: 80px;
+            transform: translateZ(102px);
+        }
+        .verification {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(45deg, #2c2c54, #40407a, #706fd3);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            text-align: center;
+            z-index: 10;
+            animation: popIn 0.5s ease-out;
+            color: #fff;
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        .yes {
+            background: linear-gradient(45deg, #4CAF50, #66BB6A);
+            color: white;
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        }
+        .yes:hover {
+            background: linear-gradient(45deg, #45a049, #5CB85C);
+            transform: translateY(-2px);
+        }
+        .no {
+            background: linear-gradient(45deg, #f44336, #EF5350);
+            color: white;
+            box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+        }
+        .no:hover {
+            background: linear-gradient(45deg, #da190b, #E53935);
+            transform: translateY(-2px);
+        }
+        .surprise {
+            display: none;
+            text-align: center;
+            color: #fff;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeIn 1s ease-in;
+            z-index: 5;
+        }
+        .surprise img {
+            width: 300px;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            animation: bounceIn 1s ease-out 0.5s both;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Partikel mengambang untuk efek modern -->
+    <div class="particle" style="width: 10px; height: 10px; left: 10%;"></div>
+    <div class="particle" style="width: 15px; height: 15px; left: 20%;"></div>
+    <div class="particle" style="width: 8px; height: 8px; left: 30%;"></div>
+    <div class="particle" style="width: 12px; height: 12px; left: 40%;"></div>
+    <div class="particle" style="width: 10px; height: 10px; left: 50%;"></div>
+    <div class="particle" style="width: 14px; height: 14px; left: 60%;"></div>
+    <div class="particle" style="width: 9px; height: 9px; left: 70%;"></div>
+    <div class="particle" style="width: 11px; height: 11px; left: 80%;"></div>
+    <div class="particle" style="width: 13px; height: 13px; left: 90%;"></div>
+    <div class="particle" style="width: 7px; height: 7px; left: 15%;"></div>
+    <div class="particle" style="width: 16px; height: 16px; left: 25%;"></div>
+    <div class="particle" style="width: 10px; height: 10px; left: 35%;"></div>
+    <div class="particle" style="width: 12px; height: 12px; left: 45%;"></div>
+    <div class="particle" style="width: 8px; height: 8px; left: 55%;"></div>
+    <div class="particle" style="width: 14px; height: 14px; left: 65%;"></div>
+    <div class="particle" style="width: 9px; height: 9px; left: 75%;"></div>
+    <div class="particle" style="width: 11px; height: 11px; left: 85%;"></div>
+    <div class="particle" style="width: 13px; height: 13px; left: 95%;"></div>
+
+    <div id="gift" class="gift-container" onclick="showVerification()">
+        <div class="face front"></div>
+        <div class="face back"></div>
+        <div class="face right"></div>
+        <div class="face left"></div>
+        <div class="face top"></div>
+        <div class="face bottom"></div>
+        <div class="ribbon"></div>
+        <div class="ribbon-vertical"></div>
+        <div class="bow"></div>
+    </div>
+    <div id="verification" class="verification">
+        <h2>Apakah Anda ingin membuka nya?</h2>
+        <div class="buttons" id="buttons">
+            <button class="yes" onclick="openSurprise()">Yes</button>
+            <button class="no" onclick="swapButtons()">No</button>
+        </div>
+    </div>
+    <div id="surprise" class="surprise">
+        <h1>Kejutann!</h1>
+        <img src="c:\Users\Zlatan77\Downloads\images.jpeg" alt="Foto Lucu Kucing" />
+    </div>
+    <script>
+        let isSwapped = false; // Track if buttons are swapped
+
+        function showVerification() {
+            document.getElementById('verification').style.display = 'block';
+        }
+
+        function swapButtons() {
+            const buttons = document.getElementById('buttons');
+            const yesBtn = buttons.querySelector('.yes');
+            const noBtn = buttons.querySelector('.no');
+            // Toggle swap
+            if (isSwapped) {
+                buttons.innerHTML = '';
+                buttons.appendChild(yesBtn);
+                buttons.appendChild(noBtn);
+                isSwapped = false;
+            } else {
+                buttons.innerHTML = '';
+                buttons.appendChild(noBtn);
+                buttons.appendChild(yesBtn);
+                isSwapped = true;
+            }
+        }
+
+        function openSurprise() {
+            document.getElementById('verification').style.display = 'none';
+            document.getElementById('gift').style.display = 'none';
+            document.getElementById('surprise').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
